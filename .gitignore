@@ -78,3 +78,5 @@ Temporary Items
 StockData/
 .settings/
 .classpath
+.DS_Store
+.classpath
