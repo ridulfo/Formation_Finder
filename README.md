@@ -16,8 +16,8 @@ The idea is to use evolutionary algorithms to find formations that would yield a
 6) Test the final generation on unseen data.
 7) Sort
 
-##Introduction
-###Candlesticks
+## Introduction
+### Candlesticks
 A candlestick is nothing more that an objects that holds OHLC.
 ```Java
 public Candlestick(String date, double open, double high, double low, double close) {
@@ -26,7 +26,25 @@ public Candlestick(String date, double open, double high, double low, double clo
 		this.high = high;
 		this.low = low;
 		this.close = close;
-	}```
+	}
+```
+### Formation
+A formation can be seen as a filter. If the formation matches with the data, a trade is made. If not, nothing happens. It compares at least two candles with its genes.
+
+---
+#### Genes
+The filtering part of a formation is its genes. The genes are what sets formations apart from each other. A gene can have one of three values. 
+```Java
+public enum ThreeState {HIGHER, LOWER, NONE};
+```
+(I decided to call the type "ThreeState" for the lack of a better name...)
+
+---
+
+#### Comparing candles
+The formations genes tell the relationship between two or more candles. 
+
+
 
 
 
