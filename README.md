@@ -9,10 +9,12 @@ The idea is to use evolutionary algorithms to find formations that would yeild a
 
 **Overview of the steps**
 1) First a population of random formations would be created.
-2) Every formation would be applied to historical open-high-low-close prices (OHLC).
+2) Every formation would be traded on historical open-high-low-close prices (OHLC).
 3) The formations are sorted after a chosen statistic. For example: average profit, accumulated profit or standard deviation.
 4) The top formations would be breeded together to form a new population.
-5) Repeat step 2 -> 5.
+5) Repeat step 2 -> 5 until satisfied with results.
+6) Test the final generation on unseen data.
+7) Sort
 
 
 
