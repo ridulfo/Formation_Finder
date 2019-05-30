@@ -42,7 +42,8 @@ The filtering part of a formation is its genes. The genes are what sets formatio
 public enum ThreeState {HIGHER, LOWER, NONE};
 ```
 (I decided to call the type "ThreeState" for the lack of a better name...
-
+![Illustration of genes](GenesIllustration.png?raw=true "Illustration of genes")
+The image above shows a candlestickformation of two candles. The text under the formation is the genetic description of this particular formation. The first row are the genes. The second is just an explanation of what part of the OHCL is being compared. For example, C0 means the close price of the candle with a zero on it.
 #### Comparing candles
 The formations genes tell the relationship between two or more candles. For example, if we are comparing today's open with yesterday' open and the formations ThreeState is "LOWER". Then for the result to be true, today's candle has to have a lower open price than yesterdays open price. "LOWER" and "HIGHER" work in the same way. However, "NONE" treats the comparison as non-important.
 
@@ -53,12 +54,11 @@ The majority of the program's time is spent in this method. One singel formation
 ### Population
 The population objects doesn't just contain an array of formations. It takes care of the sorting, breeding and trading.
 #### Sorting
-First, all the formations that did not turn a profit after trading on all the data are removed. Then, a simple insertion-sort is used for sorting. 
-#### Breeding (The birds and the bees)
-There are two ways the population breeds. The second one is not completely finished (although it does work at the moment).
+First, all the formations that did not turn a profit after trading on all the training data are removed. Then, a simple insertion-sort is used for sorting. 
+#### Breeding
+When two formations love each other very much... There are two ways the population breeds. (The second one is not completely finished (although it does work at the moment))
 ##### Breeding (1):
 This way of breeding takes assumes that the initial population size is a square number. After sorting. A subset of the population with the size the squareroot of the initial population is picked. Then, every formation is breeded with any other formation. This results in the new population being the size of the square of the subset, which corresponds with the initial population size.
-
 ##### Breeding 2:
 This way of breeding gives every formation a fixed probability of breeding, the probability is called fitness. For the creation of each new formation the following has to occur:
 1) A random formation is picked from the population. 
@@ -74,10 +74,10 @@ There are a couple of ways the genes of the parents can be mixed.
 2) Pick randomly between the parents genes. (The one I like the best)
 3) Cross over the genes at a random place in the genom. (What nature does)
 ##### Mutation
-After the new set of genes is generated. Every genes is given a random chance to mutate into a random gene.
+After the new set of genes are generated. Every genes is given a random chance to mutate into a random gene.
 
 #### Trading
-The population-object takes care of the trading of the population. To make this more effective threads are used. The stockdata is given to all the formations in a static array of stock-objects. If little trainingdata is used, creating a lot of threads creates a lot of overhead. But, creating to few threads leaves room for speedup. I would like to make the population-object sense how many threads it should use depending on how long it takes to complete trading for each formation. A little like windowsizing in TCP.
+The population-object takes care of the trading of the population. To make this more effective threads are used. The stockdata is given to all the formations in a static array of stock-objects. If little trainingdata is used, creating a lot of threads creates a lot of overhead. Although, creating to few threads leaves room for speedup. I would like to make the population-object sense how many threads it should use depending on how long it takes to complete trading for each formation. A little like windowsizing in TCP.
 
 ## Datamanager
-This object is takes care of the retrieving of data. It is able to check if the data is already stored on the computer and see if it is up to date. If not, it uses yahoofinance to retrieve the data. It then stores the new and up to date data on the computer. This is to limit the GETing to yahoo.
+As the name suggests, this object takes care of the of the data. It is able to check if the data is already stored on the computer and see if it is up to date. If not, it uses the yahoofinance API to retrieve the data. It then stores the new and up to date data on the computer. This is to limit the GETing. This object manages two data libraries, one for training and one for validating.
