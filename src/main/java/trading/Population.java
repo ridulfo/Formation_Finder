@@ -236,10 +236,9 @@ public class Population {
 	}
 
 	public void trade(ArrayList<Stock> stocks, double cost) throws InterruptedException {
+		formations.get(0).stocks = stocks;
+		formations.get(0).cost = cost;
 		for (int form = 0; form < formations.size(); form++) {// All the formations in population
-			formations.get(form).setCost(cost);
-			formations.get(form).addStocks(stocks);
-
 			Thread thread = new Thread(formations.get(form));
 			thread.start();
 

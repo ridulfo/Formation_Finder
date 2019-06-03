@@ -13,9 +13,9 @@ public class Formation implements Runnable {
 	private ArrayList<ThreeState> genes;
 	private int nCandles;
 	private double average = 0, accumulation = 1, winningTrades = 0;
-	private double cost;
+	public static double cost;
 	private ArrayList<Double> trades;
-	ArrayList<Stock> stocks;
+	public static ArrayList<Stock> stocks;
 
 	/**This is a custom three-value boolean*/
 	public enum ThreeState {
@@ -176,10 +176,6 @@ public class Formation implements Runnable {
 		return genes;
 	}
 
-	public void addStocks(ArrayList<Stock> stocks) {
-		this.stocks = stocks;
-	}
-
 	private void trade() {
 		trades = new ArrayList<Double>();
 		int nCandles = (int) this.getStatistics(0);
@@ -229,7 +225,4 @@ public class Formation implements Runnable {
 		trade();
 	}
 
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
 }
